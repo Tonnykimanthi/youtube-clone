@@ -3,7 +3,7 @@ import FeedFilterBar from "../components/main/FeedFilterBar"
 
 const Main = () => {
   return (
-    <main className="flex overflow-x-hidden">
+    <main className="grid grid-cols-[80px_1fr]">
         <SidePanel />
         <FeedFilterBar />
     </main>
