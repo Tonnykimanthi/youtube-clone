@@ -34,11 +34,11 @@ const FeedFilterBar = () => {
   return (
     <section
       ref={containerRef}
-      className="mt-2 flex items-center relative h-fit overflow-hidden scrollbar-hide"
+      className="mt-1 flex items-center relative h-fit overflow-auto scrollbar-hide"
     >
       <ul
         style={{ transform: `translateX(-${translateFeeds}px)` }}
-        className="px-5 text-white flex gap-x-4 relative transition duration-300"
+        className="px-5 text-white flex gap-x-4 transition duration-300"
       >
         {feedItems.map((item, index) => (
           <button
@@ -50,7 +50,7 @@ const FeedFilterBar = () => {
               isSelected === item
                 ? "bg-white text-black hover:bg-white/90"
                 : "bg-white/20 text-white hover:bg-white/30"
-            } whitespace-nowrap px-3 py-1 rounded-md transition`}
+            } text-sm font-medium whitespace-nowrap px-3 py-1 rounded-md transition`}
           >
             {item}
           </button>
@@ -59,7 +59,7 @@ const FeedFilterBar = () => {
 
       {leftBtnIsVisible && (
         <button
-          className="flex justify-center items-center absolute top-0 left-0 bottom-0 bg-black shadow-[10px_0px_15px_15px] shadow-black/80"
+          className="flex justify-center items-center absolute top-0 left-0 bottom-0 bg-black shadow-[10px_0px_15px_15px] shadow-black/80 rounded-full"
           onClick={() => {
             setTranslateFeeds((translate) => {
               const newTranslate = translate - TRANSLATE_VALUE;
@@ -68,14 +68,14 @@ const FeedFilterBar = () => {
             });
           }}
         >
-          <HiOutlineChevronLeft className="w-10 h-10 p-2.5 stroke-white rounded-full hover:bg-white/20 transition" />
+          <HiOutlineChevronLeft className="w-7 h-7 p-1.5 stroke-white rounded-full hover:bg-teal-600 transition" />
         </button>
       )}
 
       {rightBtnIsVisible && (
         <button className="flex justify-center items-center absolute top-0 right-0 bottom-0 bg-black shadow-[-10px_0px_15px_15px] shadow-black/80">
           <HiOutlineChevronRight
-            className="w-10 h-10 p-2.5 stroke-white rounded-full hover:bg-white/20 transition"
+            className="w-7 h-7 p-1.5 stroke-white rounded-full hover:bg-teal-600 transition"
             onClick={() => {
               setTranslateFeeds((translate) => {
                 if (containerRef.current == null) {
