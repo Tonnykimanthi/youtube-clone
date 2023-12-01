@@ -12,4 +12,6 @@ export const feedItems = [
   "News",
   "Presentations",
   "Watched",
+  "Sales",
+  "Editing"
 ];
