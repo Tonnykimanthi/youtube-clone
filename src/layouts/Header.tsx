@@ -20,13 +20,13 @@ const Header = ({menuIsActive, setMenuIsActive}: menuProps) => {
       <aside className="flex items-center gap-x-4">
         <button className="p-2 hover:bg-white/20 rounded-full group relative">
           <BiVideoPlus className="w-8 h-8 fill-white" />
-          <small className="text-white absolute -bottom-12 left-2/4 -translate-x-2/4 whitespace-nowrap px-4 py-1.5 bg-white/30 rounded scale-0 group-hover:scale-100 transition-all">
+          <small className="text-white absolute -bottom-12 left-2/4 -translate-x-2/4 whitespace-nowrap px-4 py-1.5 bg-slate-500 rounded scale-0 group-hover:scale-100 transition-all z-10">
             Create
           </small>
         </button>
         <button className="p-2 hover:bg-white/20 rounded-full group relative">
           <IoIosNotificationsOutline className="w-8 h-8 fill-white" />
-          <small className="text-white absolute -bottom-12 left-2/4 -translate-x-2/4 whitespace-nowrap px-4 py-1.5 bg-white/30 rounded scale-0 group-hover:scale-100 transition-all">
+          <small className="text-white absolute -bottom-12 left-2/4 -translate-x-2/4 whitespace-nowrap px-4 py-1.5 bg-slate-500 rounded scale-0 group-hover:scale-100 transition-all z-10">
             Notifications
           </small>
           <span className="w-5 h-5 text-white text-xs font-medium grid place-items-center absolute top-1 right-1 rounded-full bg-red-500">
