@@ -10,14 +10,19 @@ import { GoHistory } from "react-icons/go";
 import { GoVideo } from "react-icons/go";
 import { HiOutlineClock } from "react-icons/hi2";
 import { GoDownload } from "react-icons/go";
-
+// Subscription List
 import { subscriptionList } from "../../data/subscriptionList";
 
-const MainSidePanel = () => {
+interface menuProps{
+    menuIsActive: boolean;
+    setMenuIsActive: any;
+  }
+
+const MainSidePanel = ({menuIsActive, setMenuIsActive}: menuProps) => {
   return (
-    <div className="px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10">
+    <div className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10 transition duration-300 ${menuIsActive? "translate-x-0" : "-translate-x-64"}`}>
       <header className="flex items-center gap-x-4">
-        <MenuBtn />
+        <MenuBtn menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive}/>
         <YoutubeLogo />
       </header>
       <main className="scrollbar-hidden overflow-y-scroll pr-4 absolute top-12 left-4 right-0 bottom-0">

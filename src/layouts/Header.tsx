@@ -4,11 +4,16 @@ import Search from "../components/header/Search";
 import { BiVideoPlus } from "react-icons/bi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
-const Header = () => {
+interface menuProps{
+  menuIsActive: boolean;
+  setMenuIsActive: any;
+}
+
+const Header = ({menuIsActive, setMenuIsActive}: menuProps) => {
   return (
     <header className="py-2 px-5 flex justify-between items-center">
       <div className="flex items-center gap-x-4">
-        <MenuBtn />
+        <MenuBtn menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive}/>
         <YoutubeLogo />
       </div>
       <Search />
