@@ -16,6 +16,12 @@ import { PiPlaylistBold } from "react-icons/pi";
 import { subscriptionList } from "../../data/subscriptionList";
 import { playLists } from "../../data/playLists";
 import { useState } from "react";
+// Explore
+import { SiTrendmicro } from "react-icons/si";
+import { FiMusic } from "react-icons/fi";
+import { SiYoutubegaming } from "react-icons/si";
+import { CiTrophy } from "react-icons/ci";
+import { MdOutlinePodcasts } from "react-icons/md";
 
 interface menuProps {
   menuIsActive: boolean;
@@ -38,7 +44,7 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
         />
         <YoutubeLogo />
       </header>
-      <main className="scrollbar-hidden overflow-y-scroll pr-4 absolute top-12 left-4 right-0 bottom-0">
+      <main className="pb-4 scrollbar-hidden overflow-y-scroll pr-4 absolute top-16 left-4 right-0 bottom-0">
         <ul className="text-gray-200">
           <li>
             <a
@@ -70,7 +76,7 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
         </ul>
 
         <hr className="my-3 border-slate-600" />
-
+        {/* You */}
         <ul className="text-gray-200">
           <a
             href="#"
@@ -146,10 +152,15 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
           onClick={() => setShowPlaylists(!showPlaylists)}
           className="w-full h-10 pl-2 text-white flex items-center gap-x-4 rounded-xl hover:bg-white/20 transition"
         >
-          <LuChevronDown style={{transform: showPlaylists? "rotate(180deg)" : ""}} className="w-5 h-5" />
+          <LuChevronDown
+            style={{ transform: showPlaylists ? "rotate(180deg)" : "" }}
+            className="w-5 h-5"
+          />
           <span>{showPlaylists ? "Show less" : "Show more"}</span>
         </button>
+
         <hr className="my-3 border-slate-600" />
+        {/* Subscriptions */}
         <section className="text-slate-200">
           <h3 className="font-medium text-lg">Subscriptions</h3>
           <ul className="mt-2">
@@ -165,6 +176,56 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
                 </span>
               </li>
             ))}
+          </ul>
+
+          <hr className="my-3 border-slate-600" />
+          {/* Explore */}
+          <ul className="text-gray-200">
+            <li>
+              <a
+                href="#"
+                className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+              >
+                <SiTrendmicro className="fill-white w-6 h-6" />
+                <span className="tracking-tighter">Trending</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+              >
+                <FiMusic className="w-6 h-6" />
+                <span className="tracking-tighter">Music</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+              >
+                <SiYoutubegaming className="w-6 h-6" />
+                <span className="tracking-tighter">Gaming</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+              >
+                <CiTrophy className="w-6 h-6" />
+                <span className="tracking-tighter">Sports</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+              >
+                <MdOutlinePodcasts className="w-6 h-6" />
+                <span className="tracking-tighter">Podcasts</span>
+              </a>
+            </li>
           </ul>
         </section>
       </main>
