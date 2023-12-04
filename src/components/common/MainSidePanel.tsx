@@ -10,23 +10,36 @@ import { GoHistory } from "react-icons/go";
 import { GoVideo } from "react-icons/go";
 import { HiOutlineClock } from "react-icons/hi2";
 import { GoDownload } from "react-icons/go";
+import { LuChevronDown } from "react-icons/lu";
+import { PiPlaylistBold } from "react-icons/pi";
 // Subscription List
 import { subscriptionList } from "../../data/subscriptionList";
+import { playLists } from "../../data/playLists";
+import { useState } from "react";
 
-interface menuProps{
-    menuIsActive: boolean;
-    setMenuIsActive: any;
-  }
+interface menuProps {
+  menuIsActive: boolean;
+  setMenuIsActive: any;
+}
 
-const MainSidePanel = ({menuIsActive, setMenuIsActive}: menuProps) => {
+const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
+  const [showPlaylists, setShowPlaylists] = useState(false);
+
   return (
-    <div className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10 transition duration-300 ${menuIsActive? "translate-x-0" : "-translate-x-64"}`}>
+    <div
+      className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10 transition duration-300 ${
+        menuIsActive ? "translate-x-0" : "-translate-x-64"
+      }`}
+    >
       <header className="flex items-center gap-x-4">
-        <MenuBtn menuIsActive={menuIsActive} setMenuIsActive={setMenuIsActive}/>
+        <MenuBtn
+          menuIsActive={menuIsActive}
+          setMenuIsActive={setMenuIsActive}
+        />
         <YoutubeLogo />
       </header>
       <main className="scrollbar-hidden overflow-y-scroll pr-4 absolute top-12 left-4 right-0 bottom-0">
-        <ul className="py-3 text-gray-200 border-b border-slate-600">
+        <ul className="text-gray-200">
           <li>
             <a
               href="#"
@@ -56,7 +69,9 @@ const MainSidePanel = ({menuIsActive, setMenuIsActive}: menuProps) => {
           </li>
         </ul>
 
-        <ul className="py-3 text-gray-200 border-b border-slate-600">
+        <hr className="my-3 border-slate-600" />
+
+        <ul className="text-gray-200">
           <a
             href="#"
             className="flex items-center gap-x-2 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition cursor-pointer"
@@ -110,7 +125,32 @@ const MainSidePanel = ({menuIsActive, setMenuIsActive}: menuProps) => {
             </a>
           </li>
         </ul>
-        <section className="py-3 text-slate-200">
+        {/* All playlists */}
+        {showPlaylists && (
+          <ul className="text-gray-200">
+            {playLists.map((item) => (
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
+                >
+                  <PiPlaylistBold className="w-6 h-6" />
+                  <span className="tracking-tight">{item}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <button
+          onClick={() => setShowPlaylists(!showPlaylists)}
+          className="w-full h-10 pl-2 text-white flex items-center gap-x-4 rounded-xl hover:bg-white/20 transition"
+        >
+          <LuChevronDown style={{transform: showPlaylists? "rotate(180deg)" : ""}} className="w-5 h-5" />
+          <span>{showPlaylists ? "Show less" : "Show more"}</span>
+        </button>
+        <hr className="my-3 border-slate-600" />
+        <section className="text-slate-200">
           <h3 className="font-medium text-lg">Subscriptions</h3>
           <ul className="mt-2">
             {subscriptionList.map((item) => (
