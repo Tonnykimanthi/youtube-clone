@@ -15,13 +15,14 @@ import { PiPlaylistBold } from "react-icons/pi";
 // Subscription List
 import { subscriptionList } from "../../data/subscriptionList";
 import { playLists } from "../../data/playLists";
-import { useState } from "react";
 // Explore
 import { SiTrendmicro } from "react-icons/si";
 import { FiMusic } from "react-icons/fi";
 import { SiYoutubegaming } from "react-icons/si";
 import { CiTrophy } from "react-icons/ci";
 import { MdOutlinePodcasts } from "react-icons/md";
+
+import { useEffect, useRef, useState } from "react";
 
 interface menuProps {
   menuIsActive: boolean;
@@ -30,9 +31,26 @@ interface menuProps {
 
 const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
   const [showPlaylists, setShowPlaylists] = useState(false);
+  const menuContainer = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleCloseMenu = (e: Event) => {
+      if (menuContainer.current === null) return;
+
+      if (!menuContainer.current.contains(e.target as HTMLBodyElement)) {
+        setMenuIsActive(false);
+      }
+    };
+    document.body.addEventListener("click", handleCloseMenu);
+
+    return () => {
+      document.body.removeEventListener("click", handleCloseMenu);
+    };
+  });
 
   return (
     <div
+      ref={menuContainer}
       className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10 transition duration-300 ${
         menuIsActive ? "translate-x-0" : "-translate-x-64"
       }`}
@@ -134,8 +152,8 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
         {/* All playlists */}
         {showPlaylists && (
           <ul className="text-gray-200">
-            {playLists.map((item) => (
-              <li>
+            {playLists.map((item, index) => (
+              <li key={index}>
                 <a
                   href="#"
                   className="flex items-center gap-x-5 pl-2 w-full h-10 rounded-xl hover:bg-white/20 transition"
@@ -164,8 +182,11 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
         <section className="text-slate-200">
           <h3 className="font-medium text-lg">Subscriptions</h3>
           <ul className="mt-2">
-            {subscriptionList.map((item) => (
-              <li className="flex items-center gap-x-5 pl-2 h-10 rounded-xl cursor-pointer hover:bg-white/20 transition">
+            {subscriptionList.map((item, index) => (
+              <li
+                key={index}
+                className="flex items-center gap-x-5 pl-2 h-10 rounded-xl cursor-pointer hover:bg-white/20 transition"
+              >
                 <img
                   className="w-7 h-7 object-cover rounded-full"
                   src={item.img}
