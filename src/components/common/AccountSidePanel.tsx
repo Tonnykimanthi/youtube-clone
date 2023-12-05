@@ -13,10 +13,36 @@ import { FaKeyboard } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoHelpCircleOutline } from "react-icons/io5";
 import { MdOutlineFeedback } from "react-icons/md";
+import { useRef, useEffect } from "react";
 
-const AccountSidePanel = () => {
+interface accProp {
+  accMenuIsActive: boolean;
+  setAccMenuIsActive: (accMenuIsActive: boolean) => void;
+}
+
+const AccountSidePanel = ({ accMenuIsActive, setAccMenuIsActive }: accProp) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current === null) return;
+
+    const handleCloseContainer = (e: Event) => {
+      if (containerRef.current === null) return;
+      if (!containerRef.current.contains(e.target as HTMLElement)) {
+        setAccMenuIsActive(false);
+      }
+    };
+
+    document.body.addEventListener("click", handleCloseContainer);
+  });
+
   return (
-    <div className="text-white w-80 py-4 absolute right-16 shadow-xl shadow-gray-800 rounded-xl bg-[#353535] z-10">
+    <div
+      ref={containerRef}
+      className={`text-white w-80 py-4 absolute right-16 shadow-xl shadow-gray-800 rounded-xl bg-[rgb(53,53,53)] transition origin-top-right z-10 ${
+        accMenuIsActive ? "scale-100" : "scale-0"
+      }`}
+    >
       <header className="px-5 flex gap-x-4">
         <img
           className="w-12 h-12 object-cover rounded-full"
@@ -26,7 +52,7 @@ const AccountSidePanel = () => {
         <div className="font-medium leading-tight grid">
           <h2>TNY</h2>
           <span>tnycoder45525</span>
-          <a href="#" className="font-normal mt-2 text-teal-400">
+          <a href="#" className="font-normal my-2 text-teal-400">
             View your channel
           </a>
         </div>
@@ -34,7 +60,7 @@ const AccountSidePanel = () => {
 
       <hr className="my-2 border-gray-400" />
 
-      <main className="scrollbar-hidden h-[80vh] bg-[#353535] overflow-y-scroll">
+      <main className="scrollbar-hidden h-[78vh] bg-[#353535] overflow-y-scroll">
         <ul>
           <li>
             <a

@@ -11,6 +11,7 @@ import { createContext, useState } from "react";
 interface menuProps {
   menuIsActive: boolean;
   setMenuIsActive: any;
+  handleAccMenu: () => void;
 }
 
 export const headerContext = createContext<{
@@ -18,7 +19,7 @@ export const headerContext = createContext<{
   handleDisplaySearch: () => void;
 } | null>(null);
 
-const Header = ({ menuIsActive, setMenuIsActive }: menuProps) => {
+const Header = ({ menuIsActive, setMenuIsActive, handleAccMenu }: menuProps) => {
   const [searchIsVisible, setSearchIsVisible] = useState(false);
 
   const handleDisplaySearch = () => {
@@ -28,8 +29,8 @@ const Header = ({ menuIsActive, setMenuIsActive }: menuProps) => {
 
   return (
     <headerContext.Provider value={{searchIsVisible, handleDisplaySearch}}>
-      <header className="my-2 px-5 flex justify-between items-center gap-x-8 relative">
-        <div className="flex items-center gap-x-4">
+      <header className="my-2 px-5 max-sm:pl-2 flex justify-between items-center gap-x-8 relative">
+        <div className="flex items-center gap-x-4 max-sm:gap-x-2">
           <MenuBtn
             menuIsActive={menuIsActive}
             setMenuIsActive={setMenuIsActive}
@@ -54,7 +55,11 @@ const Header = ({ menuIsActive, setMenuIsActive }: menuProps) => {
               6
             </span>
           </button>
-          <button className="ml-2 w-10 h-10 rounded-full active:border border-green-500 overflow-hidden">
+          <button className="ml-2 w-10 h-10 rounded-full active:border border-green-500 overflow-hidden" onClick={(e)=>{
+            e.stopPropagation()
+            handleAccMenu()
+
+          }}>
             <img
               className="object-cover"
               src="https://images.unsplash.com/photo-1701083266435-a56ea052fb60?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMnx8fGVufDB8fHx8fA%3D%3D"
