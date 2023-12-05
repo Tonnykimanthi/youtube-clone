@@ -8,6 +8,7 @@ const SearchInput = () => {
           name="search"
           type="search"
           placeholder="Search"
+          autoComplete="off"
           className="bg-transparent text-white pl-4 w-full h-full rounded-l-full outline-none border border-white/20 focus:border-teal-700"
         />
       </article>
