@@ -11,7 +11,7 @@ interface menuProps {
 
 const Header = ({ menuIsActive, setMenuIsActive }: menuProps) => {
   return (
-    <header className="py-2 px-5 flex justify-between items-center">
+    <header className="py-2 px-5 flex justify-between items-center gap-x-8">
       <div className="flex items-center gap-x-4">
         <MenuBtn
           menuIsActive={menuIsActive}

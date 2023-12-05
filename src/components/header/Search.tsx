@@ -13,7 +13,7 @@ const Search = () => {
             className="bg-transparent text-white pl-4 w-full h-full rounded-l-full outline-none border border-white/20 focus:border-teal-700"
           />
         </article>
-        <button className="h-full grid place-items-center rounded-r-full bg-white/20 hover:bg-white/30 transition">
+        <button className="h-full grid place-items-center min-w-[3em] rounded-r-full bg-white/20 hover:bg-white/30 transition">
           <IoIosSearch className="fill-white w-6 h-6" />
         </button>
       </div>
