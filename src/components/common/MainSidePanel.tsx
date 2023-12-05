@@ -51,7 +51,7 @@ const MainSidePanel = ({ menuIsActive, setMenuIsActive }: menuProps) => {
   return (
     <div
       ref={menuContainer}
-      className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-900 z-10 transition duration-300 ${
+      className={`px-4 py-2 w-60 fixed top-0 left-0 bottom-0 bg-slate-950 z-10 transition duration-300 ${
         menuIsActive ? "translate-x-0" : "-translate-x-64"
       }`}
     >
