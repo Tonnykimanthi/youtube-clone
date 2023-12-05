@@ -6,7 +6,7 @@ import { GoDownload } from "react-icons/go";
 
 const SidePanel = () => {
   return (
-    <ul className="px-2 text-gray-200">
+    <ul className="px-2 text-gray-200 max-sm:hidden">
       <li>
         <a href="#" className="w-16 h-20 flex flex-col justify-center items-center rounded-xl hover:bg-white/20 transition">
           <IoMdHome className="fill-white w-7 h-7"/>
