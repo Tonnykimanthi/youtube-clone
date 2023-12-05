@@ -46,7 +46,7 @@ const Header = ({ menuIsActive, setMenuIsActive, handleAccMenu }: menuProps) => 
               Create
             </small>
           </button>
-          <button className="p-2 hover:bg-white/20 rounded-full group relative">
+          <button className="p-2 hover:bg-white/20 rounded-full group relative max-[460px]:hidden">
             <IoIosNotificationsOutline className="w-7 h-7 fill-white" />
             <small className="text-white absolute -bottom-12 left-2/4 -translate-x-2/4 whitespace-nowrap px-4 py-1.5 bg-slate-500 rounded scale-0 group-hover:scale-100 transition-all z-10">
               Notifications
