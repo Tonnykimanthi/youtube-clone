@@ -1,25 +1,60 @@
 import { FiMoreVertical } from "react-icons/fi";
 import { feedsToWatch } from "../../data/feedsToWatch";
+import { useEffect, useRef, useState } from "react";
 
 const Feeds = () => {
-  
+  const [mouseHover, setMouseHover] = useState(false);
+  const feedElements = feedsToWatch.map(() => useRef<HTMLLIElement>(null));
+  const videoElements = feedsToWatch.map(() => useRef<HTMLVideoElement>(null));
+
+  useEffect(() => {
+    const handleMouseEnter = (index: number) => {
+      const videoEl = videoElements[index].current;
+      if (videoEl === null) return;
+      setMouseHover(true);
+      videoEl.play().catch((error) => {
+        console.log(error);
+      });
+    };
+    const handleMouseLeave = (index: number) => {
+      const videoEl = videoElements[index].current;
+      if (videoEl === null) return;
+      setMouseHover(false);
+      videoEl.pause();
+    };
+
+    feedElements.forEach((el, index) => {
+      const feed = el.current;
+      if (feed === null) return;
+
+      feed.addEventListener("mouseenter", () => handleMouseEnter(index));
+      feed.addEventListener("mouseleave", () => handleMouseLeave(index));
+
+      return () => {
+        feed.removeEventListener("mouseenter", () => handleMouseEnter(index));
+        feed.removeEventListener("mouseleave", () => handleMouseLeave(index));
+      };
+    });
+  }, [feedElements]);
 
   return (
     <ul className="mt-5 px-4 grid grid-cols-3 gap-x-2">
       {/* Feed */}
 
-      {feedsToWatch.map((feed) => (
-        <li className="cursor-pointer">
+      {feedsToWatch.map((feed, index) => (
+        <li className="cursor-pointer" ref={feedElements[index]} key={index}>
           {/* Video / Thumbnail */}
           <div className="h-52 rounded-xl relative overflow-hidden hover:rounded-none transition-all group">
             <video
               className="w-full h-full object-cover"
               src={feed.video}
-              autoPlay
+              ref={videoElements[index]}
               muted
             ></video>
             <img
-              className="object-cover w-full h-full absolute top-0 left-0 bottom-0 right-0 group-hover:opacity-0"
+              className={`object-cover w-full h-full absolute top-0 left-0 bottom-0 right-0 ${
+                mouseHover ? "group-hover:opacity-0" : ""
+              }`}
               src={feed.thumbnail}
               alt="Video thumbnail"
             />
