@@ -12,10 +12,14 @@ const Feeds = () => {
       const videoEl = videoElements[index].current;
       if (videoEl === null) return;
       setMouseHover(true);
-      videoEl.play().catch((error) => {
-        console.log(error);
-      });
+
+      setTimeout(() => {
+        videoEl.play().catch((error) => {
+          console.log(error);
+        });
+      }, 500);
     };
+
     const handleMouseLeave = (index: number) => {
       const videoEl = videoElements[index].current;
       if (videoEl === null) return;
@@ -38,13 +42,13 @@ const Feeds = () => {
   }, [feedElements]);
 
   return (
-    <ul className="mt-5 px-4 grid grid-cols-3 gap-x-2">
+    <ul className="mt-5 px-4 grid grid-cols-3 gap-x-4">
       {/* Feed */}
 
       {feedsToWatch.map((feed, index) => (
         <li className="cursor-pointer" ref={feedElements[index]} key={index}>
           {/* Video / Thumbnail */}
-          <div className="h-52 rounded-xl relative overflow-hidden hover:rounded-none transition-all group">
+          <div className="h-52 rounded-xl relative overflow-hidden hover:rounded-none transition-all duration-300 group">
             <video
               className="w-full h-full object-cover"
               src={feed.video}
@@ -52,7 +56,7 @@ const Feeds = () => {
               muted
             ></video>
             <img
-              className={`object-cover w-full h-full absolute top-0 left-0 bottom-0 right-0 ${
+              className={`object-cover w-full h-full absolute top-0 left-0 bottom-0 right-0 delay-500 ${
                 mouseHover ? "group-hover:opacity-0" : ""
               }`}
               src={feed.thumbnail}
