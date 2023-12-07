@@ -34,6 +34,10 @@ const AccountSidePanel = ({ accMenuIsActive, setAccMenuIsActive }: accProp) => {
     };
 
     document.body.addEventListener("click", handleCloseContainer);
+
+    return () => {
+      document.body.removeEventListener("click", handleCloseContainer);
+    };
   });
 
   return (
