@@ -6,6 +6,11 @@ const Feeds = () => {
   const [mouseHover, setMouseHover] = useState(false);
   const feedElements = feedsToWatch.map(() => useRef<HTMLLIElement>(null));
   const videoElements = feedsToWatch.map(() => useRef<HTMLVideoElement>(null));
+  // Added state to store video durations
+  const [videoDurations, setVideoDurations] = useState<string[]>([]);
+  const [videoCurrTime, setVideoCurrTime] = useState<string[]>(
+    feedsToWatch.map(() => "0:00")
+  );
 
   useEffect(() => {
     const handleMouseEnter = (index: number) => {
@@ -29,10 +34,33 @@ const Feeds = () => {
 
     feedElements.forEach((el, index) => {
       const feed = el.current;
-      if (feed === null) return;
+      const videoEl = videoElements[index].current;
+      if (feed === null || videoEl === null) return;
 
       feed.addEventListener("mouseenter", () => handleMouseEnter(index));
       feed.addEventListener("mouseleave", () => handleMouseLeave(index));
+
+      // Add event listener for loadedmetadata
+      videoEl.addEventListener("loadedmetadata", () => {
+        const duration = videoDuration(index);
+        setVideoDurations((prevDurations) => {
+          const newDurations: any = [...prevDurations];
+          newDurations[index] = duration;
+          return newDurations;
+        });
+      });
+
+      // Add event listener for video video current time
+      videoEl.addEventListener("timeupdate", () => {
+        const currTime = currentTime(index);
+
+        setVideoCurrTime((prevVideos) => {
+          const newCurrTime: any = [...prevVideos];
+          newCurrTime[index] = currTime;
+
+          return newCurrTime;
+        });
+      });
 
       return () => {
         feed.removeEventListener("mouseenter", () => handleMouseEnter(index));
@@ -40,6 +68,34 @@ const Feeds = () => {
       };
     });
   }, [feedElements]);
+
+  const videoDuration = (index: number) => {
+    const videoEl = videoElements[index].current;
+    if (videoEl === null) return;
+    const mins = Math.floor(videoEl.duration / 60);
+    let secs: number | string = Math.floor(videoEl.duration - mins * 60);
+    secs = secs.toString().padStart(2, "0");
+
+    return mins + ":" + secs;
+  };
+
+  const currentTime = (index: number) => {
+    const videoEl = videoElements[index].current;
+    if (videoEl === null) return;
+    const mins = Math.floor(videoEl.currentTime / 60);
+    let secs: number | string = Math.floor(videoEl.currentTime - mins * 60);
+    secs = secs.toString().padStart(2, "0");
+
+    return mins + ":" + secs;
+  };
+
+  const progress = (index: number) => {
+    const currTime = videoElements[index].current?.currentTime;
+    const videoDuration = videoElements[index].current?.duration;
+
+    if (currTime === undefined || videoDuration === undefined) return;
+    return (currTime / videoDuration) * 100;
+  };
 
   return (
     <ul className="mt-5 px-4 grid grid-cols-3 gap-x-4">
@@ -62,6 +118,23 @@ const Feeds = () => {
               src={feed.thumbnail}
               alt="Video thumbnail"
             />
+            {/* video duration */}
+            <div className="bg-black text-white text-sm px-1 rounded absolute bottom-1 right-2 group-hover:opacity-0 transition duration-200">
+              {videoDurations[index]}
+            </div>
+
+            {/* video curr time / duration */}
+            <div className="text-sm text-white absolute bottom-1 left-2 opacity-0 group-hover:opacity-100 transition duration-200">{`${videoCurrTime[index]} / ${videoDurations[index]}`}</div>
+
+            {/* Progress */}
+            <div className="h-1 bg-white/20 absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 transition duration-200">
+              {videoDurations[index] && (
+                <span
+                  className="block h-full bg-red-600"
+                  style={{ width: `${progress(index)}%` }}
+                ></span>
+              )}
+            </div>
           </div>
 
           {/* Description */}
