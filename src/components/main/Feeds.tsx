@@ -4,13 +4,14 @@ import { useEffect, useRef, useState } from "react";
 
 const Feeds = () => {
   const [mouseHover, setMouseHover] = useState(false);
-  const feedElements = feedsToWatch.map(() => useRef<HTMLLIElement>(null));
-  const videoElements = feedsToWatch.map(() => useRef<HTMLVideoElement>(null));
-  // Added state to store video durations
+  const [hasMoreLines, setHasMoreLines] = useState(false);
   const [videoDurations, setVideoDurations] = useState<string[]>([]);
   const [videoCurrTime, setVideoCurrTime] = useState<string[]>(
     feedsToWatch.map(() => "0:00")
   );
+  const feedElements = feedsToWatch.map(() => useRef<HTMLLIElement>(null));
+  const videoElements = feedsToWatch.map(() => useRef<HTMLVideoElement>(null));
+  const titleElements = feedsToWatch.map(() => useRef<HTMLParagraphElement>(null));
 
   useEffect(() => {
     const handleMouseEnter = (index: number) => {
@@ -62,12 +63,22 @@ const Feeds = () => {
         });
       });
 
+
       return () => {
         feed.removeEventListener("mouseenter", () => handleMouseEnter(index));
         feed.removeEventListener("mouseleave", () => handleMouseLeave(index));
       };
     });
-  }, [feedElements]);
+
+    // Uncomplete
+    const handleLines = (index: number)=>{
+        const title = titleElements[index].current
+        if(title === null) return;
+        const lines = (title.innerText.match(/\n/g) || '').length + 1
+        console.log(lines)
+      }
+      handleLines(0)
+  }, []);
 
   const videoDuration = (index: number) => {
     const videoEl = videoElements[index].current;
@@ -97,14 +108,19 @@ const Feeds = () => {
     return (currTime / videoDuration) * 100;
   };
 
+
   return (
-    <ul className="mt-5 px-4 grid grid-cols-3 gap-x-4">
+    <ul className="mt-5 px-4 grid grid-cols-3 gap-4 max-lg:grid-cols-2">
       {/* Feed */}
 
       {feedsToWatch.map((feed, index) => (
-        <li className="cursor-pointer" ref={feedElements[index]} key={index}>
+        <li
+          className="cursor-pointer group"
+          ref={feedElements[index]}
+          key={index}
+        >
           {/* Video / Thumbnail */}
-          <div className="h-52 rounded-xl relative overflow-hidden hover:rounded-none transition-all duration-300 group">
+          <div className="rounded-xl relative overflow-hidden group-hover:rounded-none transition-all duration-300">
             <video
               className="w-full h-full object-cover"
               src={feed.video}
@@ -146,7 +162,10 @@ const Feeds = () => {
             />
 
             <div>
-              <h3 className="text-white font-medium leading-tight">
+              <h3
+                ref={titleElements[index]}
+                className="text-white font-medium leading-tight"
+              >
                 {feed.videoTitle}
               </h3>
               <h4 className="text-gray-400 mt-1">

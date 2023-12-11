@@ -17,4 +17,13 @@ export const feedsToWatch = [
         videoViews: "18K views",
         created: "2 days ago"
     },
+    {
+        channelIcon: "/channelIcons/traversy.jpg",
+        thumbnail: "/thumbnails/traversy.jpg",
+        video: "/videos/traversy.mp4",
+        channelName: "Traversy Media",
+        videoTitle: "Announcement: New PHP Course Release!",
+        videoViews: "18K views",
+        created: "2 days ago"
+    },
 ];
