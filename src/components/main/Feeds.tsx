@@ -164,7 +164,7 @@ const Feeds = () => {
             <div>
               <h3
                 ref={titleElements[index]}
-                className="text-white font-medium leading-tight"
+                className="title text-white font-medium leading-tight overflow-hidden"
               >
                 {feed.videoTitle}
               </h3>

@@ -11,3 +11,10 @@
 .scrollbar-hidden:hover::-webkit-scrollbar-thumb{
     @apply bg-white/30
 }
+
+.title{
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
